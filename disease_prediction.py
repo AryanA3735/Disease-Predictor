@@ -87,7 +87,7 @@ def NaiveBayes():
 
     get_symptoms = [Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get()]
     
-    # changing the values of corresponsing symptoms to 1 in list
+    # changing the values of corresponsing symptoms to 1 from 0 in list
     for k in range(0,len(symptom)):
         for z in get_symptoms:
             if(z==symptom[k]):
