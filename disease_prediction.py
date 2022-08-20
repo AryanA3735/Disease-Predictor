@@ -32,13 +32,14 @@ symptom=['itching','skin_rash','nodal_skin_eruptions','continuous_sneezing','shi
     'fluid_overload','blood_in_sputum','prominent_veins_on_calf','palpitations','painful_walking','pus_filled_pimples','blackheads','scurring','skin_peeling',
     'silver_like_dusting','small_dents_in_nails','inflammatory_nails','blister','red_sore_around_nose','yellow_crust_ooze']
 
-l2=[]
+list=[]
 for x in range(0,len(symptom)):
-    l2.append(0)
+    list.append(0)
 
 # TESTING DATA
-tr=pd.read_csv("Testing.csv")
-tr.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'Chronic cholestasis':3,'Drug Reaction':4,
+testing_data=pd.read_csv("Testing.csv")
+# just replacing diseases with the index
+testing_data.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'Chronic cholestasis':3,'Drug Reaction':4,
 'Peptic ulcer diseae':5,'AIDS':6,'Diabetes ':7,'Gastroenteritis':8,'Bronchial Asthma':9,'Hypertension ':10,
 'Migraine':11,'Cervical spondylosis':12,
 'Paralysis (brain hemorrhage)':13,'Jaundice':14,'Malaria':15,'Chicken pox':16,'Dengue':17,'Typhoid':18,'hepatitis A':19,
@@ -48,14 +49,13 @@ tr.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'Chronic chol
 '(vertigo) Paroymsal  Positional Vertigo':36,'Acne':37,'Urinary tract infection':38,'Psoriasis':39,
 'Impetigo':40}},inplace=True)
 
-X_test= tr[symptom]
-y_test = tr[["prognosis"]]
+X_test= testing_data[symptom]
+y_test = testing_data[["prognosis"]]
 np.ravel(y_test)
 
 # TRAINING DATA
-df=pd.read_csv("Training.csv")
-
-df.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'Chronic cholestasis':3,'Drug Reaction':4,
+training_data=pd.read_csv("Training.csv")
+training_data.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'Chronic cholestasis':3,'Drug Reaction':4,
 'Peptic ulcer diseae':5,'AIDS':6,'Diabetes ':7,'Gastroenteritis':8,'Bronchial Asthma':9,'Hypertension ':10,
 'Migraine':11,'Cervical spondylosis':12,
 'Paralysis (brain hemorrhage)':13,'Jaundice':14,'Malaria':15,'Chicken pox':16,'Dengue':17,'Typhoid':18,'hepatitis A':19,
@@ -65,12 +65,12 @@ df.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'Chronic chol
 '(vertigo) Paroymsal  Positional Vertigo':36,'Acne':37,'Urinary tract infection':38,'Psoriasis':39,
 'Impetigo':40}},inplace=True)
 
-X= df[symptom]
+X=training_data[symptom]
 
-y = df[["prognosis"]]
+y =training_data[["prognosis"]]
 np.ravel(y)
 
-def message():
+def Output():
     if (Symptom1.get() == "None" and  Symptom2.get() == "None" and Symptom3.get() == "None" and Symptom4.get() == "None" and Symptom5.get() == "None"):
         messagebox.showinfo("OPPS!!", "ENTER  SYMPTOMS PLEASE")
     else :
@@ -85,17 +85,19 @@ def NaiveBayes():
     print(accuracy_score(y_test, y_pred))
     print(accuracy_score(y_test, y_pred, normalize=False))
 
-    psymptoms = [Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get()]
-
+    get_symptoms = [Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get()]
+    
+    # changing the values of corresponsing symptoms to 1 in list
     for k in range(0,len(symptom)):
-        for z in psymptoms:
+        for z in get_symptoms:
             if(z==symptom[k]):
-                l2[k]=1
+                list[k]=1
 
-    inputtest = [l2]
-    predict = gnb.predict(inputtest)
+    test_input = [list]
+    predict = gnb.predict(test_input)
     predicted=predict[0]
 
+    # checking if disease is predicted
     h='no'
     for a in range(0,len(disease)):
         if(disease[predicted] == disease[a]):
@@ -113,6 +115,8 @@ root = Tk()
 root.title(" Disease Prediction From Symptoms")
 root.configure()
 
+
+# Taking symptoms as input
 Symptom1 = StringVar()
 Symptom1.set(None)
 Symptom2 = StringVar()
@@ -152,11 +156,13 @@ S5Lb = Label(root,  text="Symptom 5")
 S5Lb.config(font=("Elephant", 15))
 S5Lb.grid(row=11, column=1, pady=10, sticky=W)
 
-lr = Button(root, text="Predict",height=2, width=20, command=message)
+# creating predict button
+lr = Button(root, text="Predict",height=2, width=20, command=Output)
 lr.config(font=("Elephant", 15))
 lr.grid(row=15, column=1,pady=20)
 
-OPTIONS = sorted(symptom)
+# I will be taking input from options as processing text will be difficult
+OPTIONS = sorted(symptom) 
 
 S1En = OptionMenu(root, Symptom1,*OPTIONS)
 S1En.grid(row=7, column=2)
@@ -181,6 +187,7 @@ NameLb = Label(root, text="")
 NameLb.config(font=("Elephant", 15))
 NameLb.grid(row=18, column=1, pady=10,  sticky=W)
 
+# textbox for the output
 t3 = Text(root, height=2, width=30)
 t3.config(font=("Elephant", 20))
 t3.grid(row=20, column=1 , padx=10)
