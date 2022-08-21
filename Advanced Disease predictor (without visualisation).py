@@ -59,48 +59,6 @@ training_data.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'C
 #training_data.head()
 #DF.head()
 
-# Distribution graphs (histogram/bar graph) of column data
-# def plotPerColumnDistribution(df1, nGraphShown, nGraphPerRow):
-#     nunique = df1.nunique()
-#     df1 = df1[[col for col in training_data if nunique[col] > 1 and nunique[col] < 50]] # For displaying purposes, pick columns that have between 1 and 50 unique values
-#     nRow, nCol = df1.shape
-#     columnNames = df1.columns
-#     nGraphRow = (nCol + nGraphPerRow - 1) / nGraphPerRow
-#     # plt.figure(num = None, figsize = (6 * nGraphPerRow, 8 * nGraphRow), dpi = 80, facecolor = 'w', edgecolor = 'k')
-#     for i in range(min(nCol, nGraphShown)):
-#         # plt.subplot(nGraphRow, nGraphPerRow, i + 1)
-#         columnDf = training_data.iloc[:, i]
-#         if (not np.issubdtype(type(columnDf.iloc[0]), np.number)):
-#             valueCounts = columnDf.value_counts()
-#             valueCounts.plot.bar()
-#         else:
-#             columnDf.hist()
-    #     plt.ylabel('counts')
-    #     plt.xticks(rotation = 90)
-    #     plt.title(f'{columnNames[i]} (column {i})')
-    # plt.tight_layout(pad = 1.0, w_pad = 1.0, h_pad = 1.0)
-    # plt.show()
-
-# Scatter and density plots
-# def plotScatterMatrix(df1, plotSize, textSize):
-#     df1 = df1.select_dtypes(include =[np.number]) # keep only numerical columns
-#     # Remove rows and columns that would lead to training_data being singular
-#     df1 = df1.dropna('columns')
-#     df1 = df1[[col for col in training_data if training_data[col].nunique() > 1]] # keep columns where there are more than 1 unique values
-#     columnNames = training_data.columns
-#     if len(columnNames) > 10: # reduce the number of columns for matrix inversion of kernel density plots
-#         columnNames = columnNames[:10]
-#     df1 = df1[columnNames]
-#     ax = pd.plotting.scatter_matrix(df1, alpha=0.75, figsize=[plotSize, plotSize], diagonal='kde')
-#     corrs = df1.corr().values
-#     for i, j in zip(*plt.np.triu_indices_from(ax, k = 1)):
-#         ax[i, j].annotate('Corr. coef = %.3f' % corrs[i, j], (0.8, 0.2), xycoords='axes fraction', ha='center', va='center', size=textSize)
-#     plt.suptitle('Scatter and Density Plot')
-#     plt.show()
-
-# plotPerColumnDistribution(training_data, 10, 5)
-# plotScatterMatrix(training_data, 20, 10)
-
 X= training_data[symptoms]
 y = training_data[["prognosis"]]
 np.ravel(y)
@@ -120,47 +78,11 @@ testing_data.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'Ch
     'Hyperthyroidism':32,'Hypoglycemia':33,'Osteoarthristis':34,'Arthritis':35,
     '(vertigo) Paroymsal  Positional Vertigo':36,'Acne':37,'Urinary tract infection':38,'Psoriasis':39,
     'Impetigo':40}},inplace=True)
-#testing_data.head()
-
-
-# plotPerColumnDistribution(testing_data, 10, 5)
-# plotScatterMatrix(testing_data, 20, 10)
 
 X_test= testing_data[symptoms]
 y_test = testing_data[["prognosis"]]
 np.ravel(y_test)
-# print(X_test)
-# print(y_test)
 
-#list1 = DF['prognosis'].unique()
-# def scatterplt(disea):
-#     x = ((DF.loc[disea]).sum())#total sum of symptom reported for given disease
-#     x.drop(x[x==0].index,inplace=True)#droping symptoms with values 0
-#     print(x.values)
-#     y = x.keys()#storing nameof symptoms in y
-#     print(len(x))
-#     print(len(y))
-#     plt.title(disea)
-#     plt.scatter(y,x.values)
-#     plt.show()
-
-# def scatterinp(sym1,sym2,sym3,sym4,sym5):
-#     x = [sym1,sym2,sym3,sym4,sym5]#storing input symptoms in y
-#     y = [0,0,0,0,0]#creating and giving values to the input symptoms
-#     if(sym1!='Select Here'):
-#         y[0]=1
-#     if(sym2!='Select Here'):
-#         y[1]=1
-#     if(sym3!='Select Here'):
-#         y[2]=1
-#     if(sym4!='Select Here'):
-#         y[3]=1
-#     if(sym5!='Select Here'):
-#         y[4]=1
-#     print(x)
-#     print(y)
-#     plt.scatter(x,y)
-#     plt.show()
 
 ## DECISION TREE ALGORITHM
 
@@ -188,11 +110,8 @@ def DecisionTree():
         print("Decision Tree")
         print("Accuracy")
         print(accuracy_score(y_test, y_pred))
-        # print(accuracy_score(y_test, y_pred,normalize=False))
-        # print("Confusion matrix")
         conf_matrix=confusion_matrix(y_test,y_pred)
-        #print(conf_matrix)
-
+        
         psymptoms = [Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get()]
 
         for k in range(0,len(symptoms)):
@@ -217,6 +136,7 @@ def DecisionTree():
         else:
             pred1.set(" ")
             pred1.set("Not Found")
+
         #Creating the database if not exists named as database.db and creating table if not exists named as DecisionTree using sqlite3 
         import sqlite3 
         conn = sqlite3.connect('database.db') 
@@ -226,11 +146,6 @@ def DecisionTree():
         conn.commit()  
         c.close() 
         conn.close()
-        
-        #printing scatter plot of input symptoms
-        #printing scatter plot of disease predicted vs its symptoms
-        # scatterinp(Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get())
-        # scatterplt(pred1.get())
 
 # RANDOM FOREST ALGORITHM
 
@@ -257,10 +172,7 @@ def randomforest():
         print("Random Forest")
         print("Accuracy")
         print(accuracy_score(y_test, y_pred))
-        # print(accuracy_score(y_test, y_pred,normalize=False))
-        print("Confusion matrix")
         conf_matrix=confusion_matrix(y_test,y_pred)
-        #print(conf_matrix)
     
         psymptoms = [Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get()]
 
@@ -292,8 +204,6 @@ def randomforest():
         conn.commit()  
         c.close() 
         conn.close()
-        #printing scatter plot of disease predicted vs its symptoms
-        #scatterplt(pred2.get())
 
 # K NEAREST NEIGHBOUR (KNN) ALGORITHM
 
@@ -319,10 +229,7 @@ def KNN():
         print("kNearest Neighbour")
         print("Accuracy")
         print(accuracy_score(y_test, y_pred))
-        # print(accuracy_score(y_test, y_pred,normalize=False))
-        # print("Confusion matrix")
         conf_matrix=confusion_matrix(y_test,y_pred)
-        #print(conf_matrix)
 
         psymptoms = [Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get()]
 
@@ -347,6 +254,7 @@ def KNN():
         else:
             pred4.set(" ")
             pred4.set("Not Found")
+
          #Creating the database if not exists named as database.db and creating table if not exists named as KNearestNeighbour using sqlite3   
         import sqlite3 
         conn = sqlite3.connect('database.db') 
@@ -356,9 +264,6 @@ def KNN():
         conn.commit()  
         c.close() 
         conn.close()
-        #printing scatter plot of disease predicted vs its symptoms
-        
-        #scatterplt(pred4.get())
 
 # NAIVE BAYES
 
@@ -384,10 +289,7 @@ def NaiveBayes():
         print("Naive Bayes")
         print("Accuracy")
         print(accuracy_score(y_test, y_pred))
-        # print(accuracy_score(y_test, y_pred,normalize=False))
-        # print("Confusion matrix")
         conf_matrix=confusion_matrix(y_test,y_pred)
-        #print(conf_matrix)
 
         psymptoms = [Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get()]
         for k in range(0,len(symptoms)):
@@ -419,8 +321,7 @@ def NaiveBayes():
         conn.commit()  
         c.close() 
         conn.close()
-        #printing scatter plot of disease predicted vs its symptoms
-        #scatterplt(pred3.get())
+
 
 #BUILDING GRAPHICAL USER INTERFACE (GUI)
 
