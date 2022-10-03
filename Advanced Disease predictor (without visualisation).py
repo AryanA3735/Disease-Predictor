@@ -43,8 +43,8 @@ for i in range(0,len(symptoms)):
     
 messagebox
 #Reading the training .csv file
-training_data=pd.read_csv("Training.csv")
-DF= pd.read_csv('Training.csv', index_col='prognosis')
+training_data=pd.read_csv("C:\\Users\\b2027\\OneDrive\\Desktop\\Career\\Intern\\Project\\Disease Predictor\\Training.csv")
+DF= pd.read_csv('C:\\Users\\b2027\\OneDrive\\Desktop\\Career\\Intern\\Project\\Disease Predictor\\Training.csv', index_col='prognosis')
 
 #Replace the values in the imported file by pandas by the inbuilt function replace in pandas.
 training_data.replace({'prognosis':{'Fungal infection':0,'Allergy':1,'GERD':2,'Chronic cholestasis':3,'Drug Reaction':4,
@@ -65,7 +65,7 @@ np.ravel(y)
 #print(X)
 
 #Reading the  testing.csv file
-testing_data=pd.read_csv("Testing.csv")
+testing_data=pd.read_csv("C:\\Users\\b2027\\OneDrive\\Desktop\\Career\\Intern\\Project\\Disease Predictor\\Testing.csv")
 
 #Using inbuilt function replace in pandas for replacing the values
 
@@ -322,7 +322,6 @@ def NaiveBayes():
         c.close() 
         conn.close()
 
-
 #BUILDING GRAPHICAL USER INTERFACE (GUI)
 
 #Tk class is used to create a root window
@@ -375,52 +374,52 @@ def Exit():
         exit()
 
 #Headings for the GUI written at the top of GUI
-w2 = Label(root, justify=LEFT, text="Disease Predictor using Machine Learning Algorithms", fg="Red", bg="Ivory")
-w2.config(font=("Times",30,"bold italic"))
-w2.config(font=("Times",30,"bold italic"))
+w2 = Label(root, justify=LEFT, text="Disease Predictor using Machine Learning Algorithms", fg="Green", bg="Ivory")
+w2.config(font=("Times",30,"bold"))
+w2.config(font=("Times",30,"bold"))
 w2.grid(row=2, column=0, columnspan=2, padx=100)
 
 #Label for the name
-NameLb = Label(root, text="Name of the Patient *", fg="Red", bg="Ivory")
-NameLb.config(font=("Times",15,"bold italic"))
+NameLb = Label(root, text="Name of the Patient *", fg="Green", bg="Ivory")
+NameLb.config(font=("Times",15,"bold"))
 NameLb.grid(row=6, column=0, pady=15, sticky=W)
 
 #Creating Labels for the symtoms
 S1Lb = Label(root, text="Symptom 1 *", fg="Black", bg="Ivory")
-S1Lb.config(font=("Times",15,"bold italic"))
+S1Lb.config(font=("Times",15,"bold"))
 S1Lb.grid(row=7, column=0, pady=10, sticky=W)
 
 S2Lb = Label(root, text="Symptom 2 *", fg="Black", bg="Ivory")
-S2Lb.config(font=("Times",15,"bold italic"))
+S2Lb.config(font=("Times",15,"bold"))
 S2Lb.grid(row=8, column=0, pady=10, sticky=W)
 
 S3Lb = Label(root, text="Symptom 3", fg="Black",bg="Ivory")
-S3Lb.config(font=("Times",15,"bold italic"))
+S3Lb.config(font=("Times",15,"bold"))
 S3Lb.grid(row=9, column=0, pady=10, sticky=W)
 
 S4Lb = Label(root, text="Symptom 4", fg="Black", bg="Ivory")
-S4Lb.config(font=("Times",15,"bold italic"))
+S4Lb.config(font=("Times",15,"bold"))
 S4Lb.grid(row=10, column=0, pady=10, sticky=W)
 
 S5Lb = Label(root, text="Symptom 5", fg="Black", bg="Ivory")
-S5Lb.config(font=("Times",15,"bold italic"))
+S5Lb.config(font=("Times",15,"bold"))
 S5Lb.grid(row=11, column=0, pady=10, sticky=W)
 
 #Labels for the different algorithms
-lrLb = Label(root, text="DecisionTree", fg="white", bg="red", width = 20)
-lrLb.config(font=("Times",15,"bold italic"))
+lrLb = Label(root, text="DecisionTree", fg="green", bg="light grey", width = 20)
+lrLb.config(font=("Times",15,"bold"))
 lrLb.grid(row=15, column=0, pady=10,sticky=W)
 
-destreeLb = Label(root, text="RandomForest", fg="Red", bg="Orange", width = 20)
-destreeLb.config(font=("Times",15,"bold italic"))
+destreeLb = Label(root, text="RandomForest", fg="black", bg="light grey", width = 20)
+destreeLb.config(font=("Times",15,"bold"))
 destreeLb.grid(row=17, column=0, pady=10, sticky=W)
 
-ranfLb = Label(root, text="NaiveBayes", fg="White", bg="green", width = 20)
-ranfLb.config(font=("Times",15,"bold italic"))
+ranfLb = Label(root, text="NaiveBayes", fg="purple", bg="light grey", width = 20)
+ranfLb.config(font=("Times",15,"bold"))
 ranfLb.grid(row=19, column=0, pady=10, sticky=W)
 
-knnLb = Label(root, text="kNearestNeighbour", fg="Red", bg="Sky Blue", width = 20)
-knnLb.config(font=("Times",15,"bold italic"))
+knnLb = Label(root, text="kNearestNeighbour", fg="blue", bg="light grey", width = 20)
+knnLb.config(font=("Times",15,"bold"))
 knnLb.grid(row=21, column=0, pady=10, sticky=W)
 OPTIONS = sorted(symptoms)
 
@@ -445,42 +444,42 @@ S5 = OptionMenu(root, Symptom5,*OPTIONS)
 S5.grid(row=11, column=1)
 
 #Buttons for predicting the disease using different algorithms
-dst = Button(root, text="Prediction 1", command=DecisionTree,bg="Red",fg="yellow")
-dst.config(font=("Times",15,"bold italic"))
+dst = Button(root, text="Prediction 1", command=DecisionTree,bg="yellow",fg="green")
+dst.config(font=("Times",15, " bold"))
 dst.grid(row=6, column=3,padx=10)
 
-rnf = Button(root, text="Prediction 2", command=randomforest,bg="Light green",fg="red")
-rnf.config(font=("Times",15,"bold italic"))
+rnf = Button(root, text="Prediction 2", command=randomforest,bg="yellow",fg="black")
+rnf.config(font=("Times",15,"bold"))
 rnf.grid(row=7, column=3,padx=10)
 
-lr = Button(root, text="Prediction 3", command=NaiveBayes,bg="Blue",fg="white")
-lr.config(font=("Times",15,"bold italic"))
+lr = Button(root, text="Prediction 3", command=NaiveBayes,bg="yellow",fg="purple")
+lr.config(font=("Times",15,"bold"))
 lr.grid(row=8, column=3,padx=10)
 
-kn = Button(root, text="Prediction 4", command=KNN,bg="sky blue",fg="red")
-kn.config(font=("Times",15,"bold italic"))
+kn = Button(root, text="Prediction 4", command=KNN,bg="yellow",fg="blue")
+kn.config(font=("Times",15,"bold"))
 kn.grid(row=9, column=3,padx=10)
 
-rs = Button(root,text="Reset Inputs", command=Reset,bg="yellow",fg="purple",width=15)
-rs.config(font=("Times",15,"bold italic"))
+rs = Button(root,text="Reset Inputs", command=Reset,bg="yellow",fg="brown",width=15)
+rs.config(font=("Times",15,"bold"))
 rs.grid(row=10,column=3,padx=10)
 
-ex = Button(root,text="Exit System", command=Exit,bg="yellow",fg="purple",width=15)
-ex.config(font=("Times",15,"bold italic"))
+ex = Button(root,text="Exit System", command=Exit,bg="yellow",fg="red",width=15)
+ex.config(font=("Times",15,"bold"))
 ex.grid(row=11,column=3,padx=10)
 
 #Showing the output of different aldorithms
-t1=Label(root,font=("Times",15,"bold italic"),text="Decision Tree",height=1,bg="Light green"
-         ,width=40,fg="red",textvariable=pred1,relief="sunken").grid(row=15, column=1, padx=10)
+t1=Label(root,font=("Times",15,"bold"),text="Decision Tree",height=1,bg="yellow"
+         ,width=40,fg="green",textvariable=pred1,relief="sunken").grid(row=15, column=1, padx=10)
 
-t2=Label(root,font=("Times",15,"bold italic"),text="Random Forest",height=1,bg="Purple"
-         ,width=40,fg="white",textvariable=pred2,relief="sunken").grid(row=17, column=1, padx=10)
+t2=Label(root,font=("Times",15,"bold"),text="Random Forest",height=1,bg="yellow"
+         ,width=40,fg="black",textvariable=pred2,relief="sunken").grid(row=17, column=1, padx=10)
 
-t3=Label(root,font=("Times",15,"bold italic"),text="Naive Bayes",height=1,bg="red"
-         ,width=40,fg="orange",textvariable=pred3,relief="sunken").grid(row=19, column=1, padx=10)
+t3=Label(root,font=("Times",15,"bold"),text="Naive Bayes",height=1,bg="yellow"
+         ,width=40,fg="purple",textvariable=pred3,relief="sunken").grid(row=19, column=1, padx=10)
 
-t4=Label(root,font=("Times",15,"bold italic"),text="kNearest Neighbour",height=1,bg="Blue"
-         ,width=40,fg="yellow",textvariable=pred4,relief="sunken").grid(row=21, column=1, padx=10)
+t4=Label(root,font=("Times",15,"bold"),text="kNearest Neighbour",height=1,bg="yellow"
+         ,width=40,fg="blue",textvariable=pred4,relief="sunken").grid(row=21, column=1, padx=10)
 
 #calling this function because the application is ready to run
 root.mainloop()
